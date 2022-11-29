@@ -293,38 +293,51 @@ export default {
     },
     saveEmpleado() {
       let me = this;
-      if (me.$refs.formEmpleado.validate()) {
+      if(this.empleado.fecha_nacimiento < this.empleado.fecha_registro ){
+        if (me.$refs.formEmpleado.validate()) {
         let accion = me.empleado.id == null ? "add" : "upd";
         me.loader = true;
         if(accion=="add"){
-            axios.post(`empleados/save`,me.empleado)
-            .then(function(response) {
-                 me.verificarAccionDato(response.data, response.status, accion);
-                 me.cerrarModal(); 
-             })
-            .catch(function(error){
-                if(error.response.status == 409){
-                   me.setMessageToSnackBar("Empleado ya existe",true);
-                   me.errorsNombre = ["Nombre De Empleado  Existente ", "error"];
-                }else{
-                   Vue.swal("Error", "Ocurrio un error intente de nuevo","error"); 
-                }
+          me.empleado.fecha_nacimiento < me.empleado.fecha_registro;
+           axios.post('empleados/save',me.empleado)
+            .then(function (response) {
+             // console.log(response.statusText);
+              if(response.status==201){
+              me.verificarAccionDato(response.data, response.status, accion);
+              me.cerrarModal();
+              console.log(response.status);
+             }else{
+                Vue.swal("Error", "Ocurrio un error, intente de nuevo", "error");
+                me.cerrarModal();
+              }
             })
+            .catch(function(error){
+               Vue.swal("Error", "Ocurrio un error, intente de nuevo", "error");
+            });
+            me.loader = false;
+
         }else{
             //para actualizar
-                axios.put(`/empleados/update`,me.empleado)
+            axios.put(`empleado/update`,me.empleado)
                .then(function(response) {
-                        me.verificarAccionDato(response.data, response.status, accion);
-                        me.cerrarModal();
-                    
-                })
-          .catch(function(error) {
-            console.log(error);
-            me.loader = false;
-          });
+              if(response.status==202){
+              me.verificarAccionDato(response.data, response.status, accion);
+              me.cerrarModal();
+              }
+            else{
+                Vue.swal("Error", "Ocurrio un error, intente de nuevo", "error");
+                me.cerrarModal();
+                me.loader = false;
+              }
+            })
         }
       
       }
+
+      }else{
+        Vue.swal("Advertencia", "La fecha de nacimiento, no puede ser despues de la fecha de registro", "warning");
+      }
+      
     },
     deleteEmpleado(empleado) {
       let me = this;
