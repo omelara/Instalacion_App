@@ -122,11 +122,11 @@
                        <v-text-field
                           append-icon="mdi-folder-outline"
                           v-model="empleado.telefono"
-                          :counter="9"
+                          :counter="8"
                           @keyup="errorsNombre = []"
                           :rules="[v => !!v || 'Teléfono Es Requerido',
-                          v => Number(v) > 0 || 'El valor tiene que ser mayor a 0 y sin letras',
-                          ]"
+                         v => Number(v) > 0 || 'El valor tiene que ser mayor a 0 y sin letras',
+                          v => (v && v.length <= 10) || 'El valor no debe tener mas de 10 caracteres']"
                            pattern="^228\d{8}$"
                           label="Télefono"
                           required

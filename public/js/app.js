@@ -7620,6 +7620,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
@@ -43323,12 +43325,26 @@ var render = function () {
                                                         attrs: {
                                                           "append-icon":
                                                             "mdi-folder-outline",
-                                                          counter: 9,
+                                                          counter: 8,
                                                           rules: [
                                                             function (v) {
                                                               return (
                                                                 !!v ||
                                                                 "Teléfono Es Requerido"
+                                                              )
+                                                            },
+                                                            function (v) {
+                                                              return (
+                                                                Number(v) > 0 ||
+                                                                "El valor tiene que ser mayor a 0 y sin letras"
+                                                              )
+                                                            },
+                                                            function (v) {
+                                                              return (
+                                                                (v &&
+                                                                  v.length <=
+                                                                    10) ||
+                                                                "El valor no debe tener mas de 10 caracteres"
                                                               )
                                                             },
                                                           ],
@@ -45538,7 +45554,7 @@ var render = function () {
                                                         attrs: {
                                                           "append-icon":
                                                             "mdi-folder-outline",
-                                                          counter: 9,
+                                                          counter: 8,
                                                           rules: [
                                                             function (v) {
                                                               return (
@@ -45550,6 +45566,14 @@ var render = function () {
                                                               return (
                                                                 Number(v) > 0 ||
                                                                 "El valor tiene que ser mayor a 0 y sin letras"
+                                                              )
+                                                            },
+                                                            function (v) {
+                                                              return (
+                                                                (v &&
+                                                                  v.length <=
+                                                                    10) ||
+                                                                "El valor no debe tener mas de 10 caracteres"
                                                               )
                                                             },
                                                           ],

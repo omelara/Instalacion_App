@@ -107,8 +107,10 @@
                           append-icon="mdi-folder-outline"
                           v-model="cliente.telefono"
                           @keyup="errorsNombre = []"
-                          :counter="9"
-                          :rules="[v => !!v || 'Teléfono Es Requerido']"
+                          :counter="8"
+                          :rules="[v => !!v || 'Teléfono Es Requerido',
+                          v => Number(v) > 0 || 'El valor tiene que ser mayor a 0 y sin letras',
+                          v => (v && v.length <= 10) || 'El valor no debe tener mas de 10 caracteres']"
                           pattern="^228\d{8}$"
                           label="Teléfono"
                           required
