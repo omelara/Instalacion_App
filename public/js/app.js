@@ -9082,7 +9082,7 @@ __webpack_require__.r(__webpack_exports__);
 
           if (accion == "add") {
             me.empleado.fecha_nacimiento < me.empleado.fecha_registro;
-            axios.post('empleados/save', me.empleado).then(function (response) {
+            axios.post("empleados/save", me.empleado).then(function (response) {
               // console.log(response.statusText);
               if (response.status == 201) {
                 me.verificarAccionDato(response.data, response.status, accion);
@@ -9098,7 +9098,7 @@ __webpack_require__.r(__webpack_exports__);
             me.loader = false;
           } else {
             //para actualizar
-            axios.put("empleado/update", me.empleado).then(function (response) {
+            axios.put("/empleados/update", me.empleado).then(function (response) {
               if (response.status == 202) {
                 me.verificarAccionDato(response.data, response.status, accion);
                 me.cerrarModal();
@@ -9107,6 +9107,9 @@ __webpack_require__.r(__webpack_exports__);
                 me.cerrarModal();
                 me.loader = false;
               }
+            })["catch"](function (error) {
+              console.log(error);
+              me.loader = false;
             });
           }
         }

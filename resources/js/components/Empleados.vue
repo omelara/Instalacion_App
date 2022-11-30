@@ -299,7 +299,7 @@ export default {
         me.loader = true;
         if(accion=="add"){
           me.empleado.fecha_nacimiento < me.empleado.fecha_registro;
-           axios.post('empleados/save',me.empleado)
+           axios.post(`empleados/save`,me.empleado)
             .then(function (response) {
              // console.log(response.statusText);
               if(response.status==201){
@@ -318,7 +318,7 @@ export default {
 
         }else{
             //para actualizar
-            axios.put(`empleado/update`,me.empleado)
+            axios.put(`/empleados/update`,me.empleado)
                .then(function(response) {
               if(response.status==202){
               me.verificarAccionDato(response.data, response.status, accion);
@@ -330,8 +330,11 @@ export default {
                 me.loader = false;
               }
             })
+            .catch(function(error) {
+            console.log(error);
+            me.loader = false;
+          });
         }
-      
       }
 
       }else{
